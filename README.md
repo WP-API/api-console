@@ -5,19 +5,20 @@ WordPress.com REST API Developer Console
 An open source version of https://developer.wordpress.com/docs/api/console/ that you can run yourself. Uses implicit OAuth for authentication.
 The console requires a WordPress.com application to be created.
 
-== Configuring the console ==
+## Configuring the console
 
-=== Create a WordPress.com Application ===
-1) Login to WordPress.com
-2) Visit https://developer.wordpress.com/apps/
-3) Click "Create New Application"
-4) Full in your applications name and description
-5) Enter a redirect URI for your application. See http://developer.wordpress.com/docs/oauth2/ for more information
-6) Enter any domains you plan on accessing the console from in the "Javascript Origins" box
-7) Click 'Create'
-8) Note the "Client ID" and "Redirect URL" fields
+### Create an Application
 
-=== Provide the console your application settings ==
+1. Login to WordPress.com
+2. Visit https://developer.wordpress.com/apps/
+3. Click "Create New Application"
+4. Full in your applications name and description
+5. Enter a redirect URI for your application. See http://developer.wordpress.com/docs/oauth2/ for more information
+6. Enter any domains you plan on accessing the console from in the "Javascript Origins" box
+7. Click 'Create'
+8. Note the "Client ID" and "Redirect URL" fields
+
+### Provide the console your application setting
 
 Once you have your application credentials you need to create a configuration file for your application.
 
