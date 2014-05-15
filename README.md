@@ -22,13 +22,15 @@ The console requires a WordPress.com application to be created.
 
 Once you have your application credentials you need to create a configuration file for your application.
 
-Wherever you have placed the console (the index.html and assets folder) create a "config.json" file with the following contents:
+Wherever you have placed the console (the index.html, js, and css folders) create a "config.json" file with the following contents:
 
     {
         "client_id": _CLIENT_ID_,
 	    "redirect_uri": "_REDIRECT_URI_"
     }
+    
+You can use the config.sample.json as a base.
 
-Replacing _CLIENT_ID with the ID from above and _REDIRECT_URI_ with the URI from above.
+Replace _CLIENT_ID with the ID from above and _REDIRECT_URI_ with the URI from above.
 
 You should now be able to load the console and authenticate using the box in the lower right hand corner.
