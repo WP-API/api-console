@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<title>REST Explorer</title>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" charset="utf-8">
+
+<body>
+  <div id="auth">
+    <a href="#">Auth</a>
+  </div>
+
+  <div id="panel">
+    <form method="GET" action="#request">
+      <div class="inputs">
+        <div id="reference">
+          <label>Reference</label>
+          <ul></ul>
+        </div>
+
+        <div>
+        <label>Method <select name="method">
+          <option>GET</option>
+          <option>POST</option>
+        </select></label></div>
+        <div><label>Path <input type="text" name="path" value="/me"></label></div>
+        <div><label>Query
+                  <textarea name="query"></textarea>
+                </label></div>
+        <div><label>Body
+                  <textarea name="body"></textarea>
+                </label></div>
+      </div>
+      <div class="controls">
+        <button type="reset">Reset</button><button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <ul id="requests"></ul>
+</body>
