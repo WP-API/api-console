@@ -1,4 +1,6 @@
 {
-    "client_id": 0,
+    "api_url": "",
+    "client_key": "",
+    "client_secret": "",
     "redirect_uri": ""
 }

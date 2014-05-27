@@ -146,7 +146,7 @@
         if (object === undefined) return $("<span>undefined</span>");;
         var str = object.toString(), matches;
         node = $('<span>').addClass('value').addClass(typeof(object)).text(str)
-        if (matches = str.match(/^https:\/\/public-api.wordpress.com\/rest\/v1(\/.*)/)) { // IF it's an API URL make it clickable
+        if (matches = str.match("^" + config.api_url + "(/.*)")) { // IF it's an API URL make it clickable
           node.click(function(){
             $('form').trigger('reset');
             $('[name=path]').val(matches[1]).parents('form').trigger('submit');
@@ -276,43 +276,47 @@
     $reference.append($("<div><div></div></div>").addClass('throbber'));
 
    $.ajax( {
-      url: 'https://public-api.wordpress.com/rest/v1/help',
+      url: config.api_url + "/",
       beforeSend: function( xhr ) {
           xhr.setRequestHeader( "Accept", "application/json" );
         }
       } ).done( function( response ) {
 
       $reference.find('.throbber').remove();
-      response.forEach(function(help){
-        console.log(help);
+      $.each(response.routes, function(index){
+        var help = response.routes[index];
         var helpGroup = safeText( help.group ),
 	    group = $list.find('.group-'+helpGroup);
         if (!group.is('li')) group = $('<li><strong>'+helpGroup+'</strong><ul></ul></li>').addClass('group-'+helpGroup).appendTo($list);
-        group.find('ul').append(
-          $('<li>')
-            .append($('<span class="path-details"></span>').text(help.method + " " + help.path_labeled))
-            .append($('<span class="description"></span>').text(help.description))
-            .click(function(e){
-              var $target = $(e.target),
-                  $li = $target.is('li') ? $target : $target.parents('li').first()
+        console.log(help);
+        help.supports = help.supports || [];
+        $.each(help.supports, function (method_index, method) {
+          group.find('ul').append(
+            $('<li>')
+              .append($('<span class="path-details"></span>').text(method + " " + index))
+              // .append($('<span class="description"></span>').text(help.description))
+              .click(function(e){
+                var $target = $(e.target),
+                    $li = $target.is('li') ? $target : $target.parents('li').first()
 
-              if($li.hasClass('selected')) return;
-              $reference.find('li.selected').removeClass('selected');
-              $li.addClass('selected');
+                if($li.hasClass('selected')) return;
+                $reference.find('li.selected').removeClass('selected');
+                $li.addClass('selected');
 
-              $.each({'path':$pathBuilder, 'query':$queryBuilder, 'body':$bodyBuilder}, function(prop, builder){
-                var o = {};
-                $.each(help.request[prop], function(key, settings){
-                  o[key] = ""
+                $.each({'path':$pathBuilder, 'query':$queryBuilder, 'body':$bodyBuilder}, function(prop, builder){
+                  var o = {};
+                  // $.each(help.request[prop], function(key, settings){
+                    // o[key] = ""
+                  // });
+                  // builder.setObject(o, help.request[prop]);
                 });
-                builder.setObject(o, help.request[prop]);
-              });
-              $pathField.val(help.path_labeled).trigger('keyup');
-              $fields.find('.raw-toggle').removeClass('on').show().trigger('toggle', [false]);
-              $fields.first().hide().find('select').val(help.method);
-              $fields.last()[help.method == 'POST' ? 'show' : 'hide']();
-            })
-        )
+                $pathField.val(index).trigger('keyup');
+                $fields.find('.raw-toggle').removeClass('on').show().trigger('toggle', [false]);
+                $fields.first().hide().find('select').val(help.supports[method]);
+                $fields.last()[method == 'POST' ? 'show' : 'hide']();
+              })
+          )
+        });
       });
     })
 
@@ -367,7 +371,7 @@
 
           req.query = query = $(this.query).parent().siblings().is('.raw-toggle.on') ? this.query.value : $queryBuilder.getObject();
           console.log(query);
-          req.url = 'https://public-api.wordpress.com/rest/v1' + req.path + '?' + $.param( query );
+          req.url = config.api_url + req.path + '?' + $.param( query );
 
           request = $('<li></li>').prependTo(log).addClass('loading'),
           title = $("<h2><small>"+safeText( req.method )+"</small> "+safeText( req.path )+"</h2>").appendTo(request);
