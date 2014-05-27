@@ -17,10 +17,26 @@
     }
     var c = config;
 
+    // var signRequest = function (opts) {
+    //   var auth = {
+    //     "client_key": config.client_key,
+    //     "client_secret": config.client_secret,
+    //     "token_key": opts.token_key || null,
+    //     "token_secret": options.token_secret || null,
+    //   };
+
+    //   var params = opts.data;
+    //   if ( )
+    // };
+
     $( '#auth a' ).click( function(e) {
       e.preventDefault();
 
-      window.location = "https://public-api.wordpress.com/oauth2/authorize/?client_id=" + config.client_id + '&redirect_uri=' + encodeURIComponent ( config.redirect_uri ) + '&response_type=token';
+      // $.ajax(signRequest({
+        // "url": config.api_url + "/oauth1/request",
+      // }));
+
+      // window.location = "https://public-api.wordpress.com/oauth1/authorize/?client_id=" + config.client_id + '&redirect_uri=' + encodeURIComponent ( config.redirect_uri ) + '&response_type=token';
     } );
 
     if ( wpConsole.access_token && wpConsole.site_id ) {
