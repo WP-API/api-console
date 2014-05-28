@@ -254,7 +254,7 @@
 
    $.ajax( { url: config.api_url + "/" } ).done( function( response ) {
 
-      var auth = osmAuth({
+      var auth = wpApiAuth({
         oauth_consumer_key: config.client_key,
         oauth_secret: config.client_secret,
         url: config.api_url,
