@@ -392,8 +392,7 @@
                   }; 
 
           req.query = query = $(this.query).parent().siblings().is('.raw-toggle.on') ? this.query.value : $queryBuilder.getObject();
-          console.log(query);
-          req.url = config.api_url + req.path + '?' + $.param( query );
+          req.url = config.api_url + req.path + '?';
 
           request = $('<li></li>').prependTo(log).addClass('loading'),
           title = $("<h2><small>"+safeText( req.method )+"</small> "+safeText( req.path )+"</h2>").appendTo(request);
@@ -403,6 +402,7 @@
           } else {
             q = req.query
           }
+          req.url += q;
           if(typeof(q) == 'string' && q.trim() != "") {
             title.append($('<em>').text((q[0] == "?" ? "" : "?") + q))
           }
