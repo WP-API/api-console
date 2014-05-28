@@ -337,7 +337,7 @@
                 });
                 $pathField.val(index).trigger('keyup');
                 $fields.find('.raw-toggle').removeClass('on').show().trigger('toggle', [false]);
-                $fields.first().hide().find('select').val(help.supports[method]);
+                $fields.first().hide().find('select').val(method);
                 $fields.last()[method == 'POST' ? 'show' : 'hide']();
               })
           )
