@@ -188,7 +188,7 @@
                       $builder.trigger('valuechanged', [key, values[key]]);
                     }).bind('focus', function(){
                       // show the help
-                      formatHelp(key, helpValues[key])
+                      // formatHelp(key, helpValues[key])
                       $helpBubble.show().css({
                         left:panel.width()+3,
                         top: $(this).parent().offset().top - $helpBubble.height()*0.5 + $(this).parent().height()*0.5
@@ -202,7 +202,7 @@
                     function(){
                       var $row = $(this);
                       helpTimer = setTimeout(function(){
-                        formatHelp(key, helpValues[key])
+                        // formatHelp(key, helpValues[key])
                         $helpBubble.show().css({
                           left:panel.width() + 3,
                           top: $row.offset().top - $helpBubble.height()*0.5 + $row.height()*0.5
@@ -298,6 +298,16 @@
                 if($li.hasClass('selected')) return;
                 $reference.find('li.selected').removeClass('selected');
                 $li.addClass('selected');
+
+                var pathProps = {};
+                var pathMatches = index.match(/[^<>]+(?=>)/g);
+                if (pathMatches && pathMatches.length) {
+                  $.each(pathMatches, function (index, value) {
+                    var pattern = "<" + value + ">";
+                    pathProps[pattern] = "";
+                  });
+                }
+                $pathBuilder.setObject(pathProps, {});
 
                 $.each({'path':$pathBuilder, 'query':$queryBuilder, 'body':$bodyBuilder}, function(prop, builder){
                   var o = {};
