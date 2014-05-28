@@ -301,12 +301,7 @@
     var $reference = $('#reference'), $list = $reference.find('ul'), $fields = $('.inputs > div').not('#reference');
     $reference.append($("<div><div></div></div>").addClass('throbber'));
 
-   $.ajax( {
-      url: config.api_url + "/",
-      beforeSend: function( xhr ) {
-          xhr.setRequestHeader( "Accept", "application/json" );
-        }
-      } ).done( function( response ) {
+   $.ajax( { url: config.api_url + "/" } ).done( function( response ) {
 
       $reference.find('.throbber').remove();
       $.each(response.routes, function(index){
