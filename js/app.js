@@ -17,20 +17,30 @@
     }
     var c = config;
 
-    // var signRequest = function (opts) {
-    //   var auth = {
-    //     "client_key": config.client_key,
-    //     "client_secret": config.client_secret,
-    //     "token_key": opts.token_key || null,
-    //     "token_secret": options.token_secret || null,
-    //   };
+    var auth = osmAuth({
+      oauth_consumer_key: config.client_key,
+      oauth_secret: config.client_secret,
+      url: config.api_url,
+      urls: {
+        request: config.site_url + "/oauth1/request",
+        authorize: config.site_url + "/oauth1/authorize",
+        access: config.site_url + "/oauth1/access",
+      },
+      // singlepage: true
+    });
+    window.auth = auth;
 
-    //   var params = opts.data;
-    //   if ( )
-    // };
+    var signRequest = function (opts) {
+
+    };
 
     $( '#auth a' ).click( function(e) {
       e.preventDefault();
+
+      auth.authenticate(function() {
+        $( '#auth a' ).html( 'Authenticated!' );
+      });
+
 
       // $.ajax(signRequest({
         // "url": config.api_url + "/oauth1/request",
@@ -39,8 +49,8 @@
       // window.location = "https://public-api.wordpress.com/oauth1/authorize/?client_id=" + config.client_id + '&redirect_uri=' + encodeURIComponent ( config.redirect_uri ) + '&response_type=token';
     } );
 
-    if ( wpConsole.access_token && wpConsole.site_id ) {
-      $( '#auth a' ).html( 'Blog: ' + wpConsole.site_id )
+    if ( auth.authenticated() ) {
+      $( '#auth a' ).html( 'Authenticated!' );
     }
 
     var log = $('#requests'), // where the requests are listed
@@ -379,10 +389,7 @@
                     method:this.method.value,
                     data:$(this.body).parent().siblings().is('.raw-toggle.on') ? this.body.value : $bodyBuilder.getObject(),
 
-                    beforeSend: function( xhr ) {
-                      if ( wpConsole.access_token )
-                        xhr.setRequestHeader( "Authorization", "BEARER " + wpConsole.access_token );
-                    }
+                    beforeSend: auth.ajaxBeforeSend
                   }; 
 
           req.query = query = $(this.query).parent().siblings().is('.raw-toggle.on') ? this.query.value : $queryBuilder.getObject();
