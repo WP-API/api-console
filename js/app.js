@@ -312,6 +312,10 @@
         console.log(help);
         help.supports = help.supports || [];
         $.each(help.supports, function (method_index, method) {
+          if (method === 'HEAD') {
+            return;
+          }
+
           group.find('ul').append(
             $('<li>')
               .append($('<span class="path-details"></span>').text(method + " " + index))
