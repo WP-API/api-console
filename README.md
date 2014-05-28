@@ -47,5 +47,9 @@ steps on-screen!
 ## Credits
 * Uses code based on OpenStreetMap's [osm-auth][]. Licensed under the public
   domain.
+* Originally based on the open source version of
+  [WordPress.com's API Console][wpcom-console]. Major thanks to Automattic and
+  developers for releasing this.
 
 [osm-auth]: https://github.com/osmlab/osm-auth
+[wpcom-console]: https://github.com/Automattic/rest-api-console
