@@ -4,37 +4,6 @@
 
     var c = config;
 
-    var auth = osmAuth({
-      oauth_consumer_key: config.client_key,
-      oauth_secret: config.client_secret,
-      url: config.api_url,
-      urls: {
-        request: config.site_url + "/oauth1/request",
-        authorize: config.site_url + "/oauth1/authorize",
-        access: config.site_url + "/oauth1/access",
-      },
-    });
-    window.auth = auth;
-
-    $( '#auth a' ).click( function(e) {
-      e.preventDefault();
-
-      auth.authenticate(function() {
-        $( '#auth a' ).html( 'Authenticated!' );
-      });
-
-
-      // $.ajax(signRequest({
-        // "url": config.api_url + "/oauth1/request",
-      // }));
-
-      // window.location = "https://public-api.wordpress.com/oauth1/authorize/?client_id=" + config.client_id + '&redirect_uri=' + encodeURIComponent ( config.redirect_uri ) + '&response_type=token';
-    } );
-
-    if ( auth.authenticated() ) {
-      $( '#auth a' ).html( 'Authenticated!' );
-    }
-
     var log = $('#requests'), // where the requests are listed
         initialWidth = $.cookie('panelWidth'), // save the width of the left panel
         panel = $('#panel'), // a reference to the left panel
@@ -285,13 +254,33 @@
 
    $.ajax( { url: config.api_url + "/" } ).done( function( response ) {
 
+      var auth = osmAuth({
+        oauth_consumer_key: config.client_key,
+        oauth_secret: config.client_secret,
+        url: config.api_url,
+        urls: response.authentication.oauth1
+      });
+      window.auth = auth;
+
+      $( '#auth a' ).click( function(e) {
+        e.preventDefault();
+
+        auth.authenticate(function() {
+          $( '#auth a' ).html( 'Authenticated!' );
+        });
+
+      } );
+
+      if ( auth.authenticated() ) {
+        $( '#auth a' ).html( 'Authenticated!' );
+      }
+
       $reference.find('.throbber').remove();
       $.each(response.routes, function(index){
         var help = response.routes[index];
         var helpGroup = safeText( help.group ),
 	    group = $list.find('.group-'+helpGroup);
         if (!group.is('li')) group = $('<li><strong>'+helpGroup+'</strong><ul></ul></li>').addClass('group-'+helpGroup).appendTo($list);
-        console.log(help);
         help.supports = help.supports || [];
         $.each(help.supports, function (method_index, method) {
           if (method === 'HEAD') {
