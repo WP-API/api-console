@@ -1,20 +1,7 @@
   jQuery( document ).ready(function( $ ) {
 
-    var wpConsole = wpConsole || {};
-
     $.ajax( { url: 'config.json' } ).done(  function( config ) {
 
-    wpConsole.access_token = $.cookie('access_token');
-    wpConsole.site_id = $.cookie('site_id');
-    var params = QueryStringToHash( location.hash.substr(1) );
-
-    if ( params.access_token ) {
-      $.cookie('access_token', params.access_token );
-      $.cookie('site_id', params.site_id );
-
-      wpConsole.access_token = params.access_token;
-      wpConsole.site_id = params.site_id;
-    }
     var c = config;
 
     var auth = osmAuth({
@@ -26,13 +13,8 @@
         authorize: config.site_url + "/oauth1/authorize",
         access: config.site_url + "/oauth1/access",
       },
-      // singlepage: true
     });
     window.auth = auth;
-
-    var signRequest = function (opts) {
-
-    };
 
     $( '#auth a' ).click( function(e) {
       e.preventDefault();
