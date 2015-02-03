@@ -202,7 +202,7 @@ ul#requests {
   left: 350px;
   right:0;
   bottom:0;
-  background: url("/img/wp.png") no-repeat center center hsl(0,0%,97%);
+  background: url("../img/wp.png") no-repeat center center hsl(0,0%,97%);
 }
 
 ul#requests > li {
