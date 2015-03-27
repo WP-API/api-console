@@ -1,6 +1,6 @@
   jQuery( document ).ready(function( $ ) {
 
-    $.ajax( { url: 'config.json' } ).done(  function( config ) {
+    $.ajax( { url: 'config.json', dataType: 'json' } ).done(  function( config ) {
 
     var c = config;
 
