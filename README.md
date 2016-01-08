@@ -39,6 +39,10 @@ of your screen. (If these are missing, your `api_url` is set incorrectly.)
 To make authenticated requests, simply hit the **Auth** button and follow the
 steps on-screen!
 
+**NOTE** - The API console does not protect against someone reading the secrets
+in your `config.json` from a web browser or other HTTP client!  Be sure to
+secure your installation by requiring authentication through your web server.
+
 ## Credits
 * Uses code based on OpenStreetMap's [osm-auth][]. Licensed under the public
   domain.
