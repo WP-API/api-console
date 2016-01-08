@@ -10,16 +10,11 @@ Once you have WP API and the OAuth server plugins activated on your server,
 you'll need to create a "consumer". This is an identifier for the application,
 and includes a "key" and "secret", both needed to link to your site.
 
-To create the consumer, run the following **on your server**:
-```bash
-$ wp oauth1 add
+Go to **Applications** > **Users** and add your application there.  Be sure to
+specify the callback URL as the path to the console's `land.html` page!
 
-ID: 4
-Key: sDc51JgH2mFu
-Secret: LnUdIsyhPFnURkatekRIAUfYV7nmP4iF3AVxkS5PRHPXxgOW
-```
-
-Note the key and secret returned here. You'll need those in a moment.
+Note the key and secret returned when you add the application. You'll need
+those in a moment.
 
 ### Step 2: Save your configuration
 Time to link the console to your site. Copy `config.sample.json` to
